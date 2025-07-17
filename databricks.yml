@@ -19,7 +19,7 @@ targets:
       host: https://dbc-e667f434-e97e.cloud.databricks.com
     variables:
       git_branch: main
-      demo_parameter_value: "Hello, Free World!"
+      demo_parameter_value: "Hello, World!"
 
 resources:
   jobs:
@@ -37,5 +37,5 @@ resources:
         git_provider: azureDevOpsServices
         git_branch: ${var.git_branch}
       schedule:
-        quartz_cron_expression: "0 0 7 * * ?"  # Daily at 7:00 AM
+        quartz_cron_expression: "0 0 7 * * ?"  # Daily at 7:00 AM UTC
         timezone_id: "UTC"
