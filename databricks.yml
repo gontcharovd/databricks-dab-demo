@@ -1,32 +1,34 @@
 bundle:
-  name: 'DAB-Demo'
-  uuid: '05622722-fb3a-4a17-8f1f-c3c1d37ececb'
+  name: "DAB-Demo"
+  uuid: "05622722-fb3a-4a17-8f1f-c3c1d37ececb"
 
 variables:
   git_branch:
     description: "Git branch to use for job source code"
+  demo_parameter_value:
+    description: "Text value to pass as a Databricks notebook parameter"
 
 presets:
   tags:
-    application: Demo
+    application: "Demo Notebook"
 
 targets:
   free:
     mode: development
     workspace:
-      host: https://adb-501122158571398.18.azuredatabricks.net
+      host: https://dbc-e667f434-e97e.cloud.databricks.com
     variables:
       git_branch: main
-      demo_parameter_value: "Hello, free world!"
+      demo_parameter_value: "Hello, Free World!"
 
 resources:
   jobs:
-    run_minimal_notebook:
-      name: Run_Notebook
+    run_demo_notebook:
+      name: run_demo_notebook_job
       tasks:
-        - task_key: Run_Notebook
+        - task_key: run_demo_notebook_task
           notebook_task:
-            notebook_path: src/minimal_notebook
+            notebook_path: demo_notebook
             base_parameters:
               demo_parameter: ${var.demo_parameter_value}
             source: GIT
