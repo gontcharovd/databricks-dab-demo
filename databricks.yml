@@ -1,0 +1,39 @@
+bundle:
+  name: 'DAB-Demo'
+  uuid: '05622722-fb3a-4a17-8f1f-c3c1d37ececb'
+
+variables:
+  git_branch:
+    description: "Git branch to use for job source code"
+
+presets:
+  tags:
+    application: Demo
+
+targets:
+  free:
+    mode: development
+    workspace:
+      host: https://adb-501122158571398.18.azuredatabricks.net
+    variables:
+      git_branch: main
+      demo_parameter_value: "Hello, free world!"
+
+resources:
+  jobs:
+    run_minimal_notebook:
+      name: Run_Notebook
+      tasks:
+        - task_key: Run_Notebook
+          notebook_task:
+            notebook_path: src/minimal_notebook
+            base_parameters:
+              demo_parameter: ${var.demo_parameter_value}
+            source: GIT
+      git_source:
+        git_url: https://gontcharovd@dev.azure.com/gontcharovd/databricks-dab-demo/_git/databricks-dab-demo
+        git_provider: azureDevOpsServices
+        git_branch: ${var.git_branch}
+      schedule:
+        quartz_cron_expression: "0 0 7 * * ?"  # Daily at 7:00 AM
+        timezone_id: "UTC"
