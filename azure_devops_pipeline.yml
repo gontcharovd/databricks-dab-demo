@@ -7,38 +7,29 @@ trigger:
       - demo_notebook.ipynb
       - databricks.yml
 
-parameters:
-  - name: databricksWorkspace
-    type: string
-  - name: databricksToken
-    type: string
-
 jobs: 
   - job: DeployFree
     displayName: "Deploy to free Databricks workspace"
-    condition: eq(variables["Build.SourceBranch"], "refs/heads/main")
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
     variables:
       - group: databricks-free-variable-group
     steps:
-      parameters:
-        databricksWorkspace: $(DATABRICKS_WORKSPACE)
-        databricksToken: $(DATABRICKS_TOKEN)
       - script: |
           curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
         displayName: 'Install Databricks CLI'
-
+        
       - task: Bash@3
-        displayName: 'Validate Databricks Bundle for ${{ parameters.databricksWorkspace }}'
+        displayName: 'Validate Databricks Bundle for $(DATABRICKS_WORKSPACE)'
         inputs:
           targetType: 'inline'
           script: |
-            export DATABRICKS_TOKEN="${{ parameters.databricksToken }}"
-            databricks bundle validate -t ${{ parameters.databricksWorkspace }}
-
+            export DATABRICKS_TOKEN="$(DATABRICKS_TOKEN)"
+            databricks bundle validate -t $(DATABRICKS_WORKSPACE)
+            
       - task: Bash@3
-        displayName: 'Deploy Databricks Bundle to ${{ parameters.databricksWorkspace }}'
+        displayName: 'Deploy Databricks Bundle to $(DATABRICKS_WORKSPACE)'
         inputs:
           targetType: 'inline'
           script: |
-            export DATABRICKS_TOKEN="${{ parameters.databricksToken }}"
-            databricks bundle deploy -t ${{ parameters.databricksWorkspace }}
+            export DATABRICKS_TOKEN="$(DATABRICKS_TOKEN)"
+            databricks bundle deploy -t $(DATABRICKS_WORKSPACE)orkspace }}
