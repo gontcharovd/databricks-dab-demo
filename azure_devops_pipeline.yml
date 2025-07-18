@@ -6,6 +6,7 @@ trigger:
     include:
       - demo_notebook.ipynb
       - databricks.yml
+      - azure_devops_pipeline.yml
 
 jobs: 
   - job: DeployFree
