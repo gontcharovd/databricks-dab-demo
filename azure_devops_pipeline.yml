@@ -32,4 +32,4 @@ jobs:
           targetType: 'inline'
           script: |
             export DATABRICKS_TOKEN="$(DATABRICKS_TOKEN)"
-            databricks bundle deploy -t $(DATABRICKS_WORKSPACE)orkspace }}
+            databricks bundle deploy -t $(DATABRICKS_WORKSPACE)
