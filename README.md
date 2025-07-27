@@ -18,6 +18,6 @@ The project directory in the Git repository consists of just three files and a R
 
 The DAB defines a simple Databricks job with one notebook task that reads and prints a value from a notebook widget. This DAB is deployed to a Databricks Free Edition workspace using an Azure DevOps Pipeline.
 
-For more information, refer to the full text on [my website](https://gontcharov.eu/posts/blog/databricks-dab-azure-devops-pipelines).
+For more information, refer to the full [article on my website](https://gontcharov.eu/posts/blog/databricks-dab-azure-devops-pipelines).
 
 ***
